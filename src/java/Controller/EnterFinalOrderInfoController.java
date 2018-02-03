@@ -90,12 +90,9 @@ public class EnterFinalOrderInfoController{
             pkgOrderDAO.closePkgOrder(pkgOrderId, orderID);
         }
         
-//        HttpSession session = request.getSession();
-//        session.setAttribute("orderID", orderID);
-        System.out.println("this is the selected pkg order object: " + 
-                ordersDAO.getOpenPkgOrdersByCustomerAll(customerID, orderID).get(0));
-        int orderIDSess = Integer.parseInt(request.getSession().getAttribute("orderID").toString());
-        System.out.println(orderIDSess);
+        HttpSession session = request.getSession();
+        session.setAttribute("orderID", orderID);
+        
         //navigates to ReceiptPage Controller and gives newOrder as variable "orderDetail"
         return new ModelAndView("receiptPage","itemsOrdered",ordersDAO.getOpenPkgOrdersByCustomerAll(customerID, orderID));
     }

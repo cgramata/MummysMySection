@@ -4,7 +4,7 @@
     int paymentType = 2;
     int creditID = 1;
     int customerID = 2;
-    int orderID = 9;
+    int orderID = 0;
     session.setAttribute("orderID",orderID);
     session.setAttribute("paymentType", paymentType);
     session.setAttribute("creditID", creditID);
