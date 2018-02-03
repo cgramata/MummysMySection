@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+
+    <!--
+    Most controllers will use the ControllerClassNameHandlerMapping above, but
+    for the index controller we are using ParameterizableViewController, so we must
+    define an explicit mapping for it.
+    -->
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="index.htm">indexController</prop>
+                <prop key="seeAllOrders.htm">seeAllOrdersController</prop>
+                <prop key="newOrders.htm">newOrdersController</prop>
+                <prop key="editOrder.htm">editOrderController</prop>
+                <prop key="choosePaymentOption.htm">choosePaymentOptionController</prop>
+                <prop key="confirmationPage.htm">confirmationPageController</prop>
+                <prop key="enterFinalOrderInfo.htm">enterFinalOrderInfoController</prop>
+                <prop key="receiptPage.htm">receiptPageController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp" />
+
+    <!--
+    The index controller.
+    -->
+    <bean name="indexController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="index" />
+    
+    <bean name="newOrdersController"
+          class="Controller.NewOrdersController"
+          p:ordersDAO-ref="ordersDAO"/>
+    
+    <bean name="choosePaymentOptionController"
+          class="Controller.ChoosePaymentOption" 
+          p:pkgOrderDAO-ref="pkgOrderDAO"/>
+          
+    <bean name="confirmationPageController"
+          class="Controller.ConfirmationPageController"
+          p:pkgOrderDAO-ref="pkgOrderDAO"/>
+    
+    <bean name="editOrderController"
+          class="Controller.EditOrderController"
+          p:ordersDAO-ref="ordersDAO" />
+    
+    <bean name="seeAllOrdersController"
+          class="Controller.SeeAllOrdersController"
+          p:ordersDAO-ref="ordersDAO" />
+    
+    <bean name="enterFinalOrderInfoController" 
+          class="Controller.EnterFinalOrderInfoController"
+          p:ordersDAO-ref="ordersDAO"
+          p:pkgOrderDAO-ref="pkgOrderDAO"/>
+    
+    <bean name="receiptPageController"
+          class="Controller.ReceiptPageController"
+          p:ordersDAO-ref="ordersDAO"
+          p:pkgOrderDAO-ref="pkgOrderDAO"/>
+    
+    <bean name="pkgOrderDAO" class="Service.PkgOrderDAOImpl" />
+    <bean name="ordersDAO" class="Service.OrdersDAOImpl" />
+    
+    
+
+</beans>
