@@ -57,6 +57,13 @@ public class OrdersDAOImpl implements OrdersDAO{
         return jdbcTemplate.query(query, new OrdersRowMapper());
     }
     
+    //retrieves orders specified for "today's" date
+    @Override
+    public List getAllOfTodaysOrders() {
+        String query = "SELECT * FROM ORDERS WHERE TO_DATE(DELIVERY_DATE) = TRUNC(SYSDATE)";
+        return jdbcTemplate.query(query, new OrdersRowMapper());
+    }
+    
     //generates an orderID from an existing orderID 
     @Override
     public int idOrdersGenerator(){
