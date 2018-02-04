@@ -41,7 +41,7 @@ public class ReceiptPageController {
         //total price is set from selectedOrder
         double totalPrice = selectedOrder.getTotalPrice();
         //retrieves a list of closed pkgOrders associated with the custemer and order
-        List<CartPkg> listOfClosedPkgs = ordersDAO.getOpenPkgOrdersByCustomerAll(
+        List<CartPkg> listOfClosedPkgs = ordersDAO.getPkgOrdersByCustomerAll(
                 selectedOrder.getCustomerID(), orderID);
         //gives the receiptPage.jsp variables to work to populate fields
         model.addAttribute("finalPrice", totalPrice);

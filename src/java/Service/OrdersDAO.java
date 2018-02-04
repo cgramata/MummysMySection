@@ -12,6 +12,7 @@ import java.util.List;
 /**
  *
  * @author syntel
+ * Orders interface
  */
 public interface OrdersDAO {
     public List getAllOrders();
@@ -21,6 +22,6 @@ public interface OrdersDAO {
     public int idOrdersGenerator();
     public List getOrdersByOrderID(int orderID);
     public ArrayList<Integer> getOpenPkgOrderIDs(int customerID);
-    public List<CartPkg> getOpenPkgOrdersByCustomerAll(int customerID, int orderID);
+    public List<CartPkg> getPkgOrdersByCustomerAll(int customerID, int orderID);
 }
 

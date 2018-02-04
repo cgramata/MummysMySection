@@ -7,7 +7,6 @@ package Service;
 
 import Model.CartPkg;
 import Model.Orders;
-import Service.PkgOrderDAOImpl;
 import Model.PkgOrder;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,52 +15,62 @@ import org.springframework.jdbc.core.JdbcTemplate;
 /**
  *
  * @author syntel
+ * implements the necessary methods
  */
 public class OrdersDAOImpl implements OrdersDAO{
     
+    //creates the jdbc connection to be utilized in this class
     private static JdbcTemplate jdbcTemplate;
     
+    //constructor
     public void setDataSource(DataSource dataSource){
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
     
+    //retrieves all orders from the Orders table
     @Override
     public List getAllOrders() {
         return jdbcTemplate.query("select * from ORDERS", new OrdersRowMapper());
     }
     
+    //get all open pkgOrdersIDs (items in carts) from a customer that hasn't checked out
     @Override
     public ArrayList<Integer> getOpenPkgOrderIDs(int customerID){
         PkgOrderDAOImpl pkgOrderMethods = new PkgOrderDAOImpl();
+        //retrieves the list of pkgOrders
         List<PkgOrder> listOfPkgOrder = pkgOrderMethods.getOpenPkgOrdersByCustomer(customerID);
         
         ArrayList<Integer> listOfPkgOrderIDs = new ArrayList();
         //iterate over listOfPkgeOrder objects to retrieve pkgOrderID
-        for(PkgOrder pkgOrder: listOfPkgOrder) {
+        listOfPkgOrder.forEach((pkgOrder) -> {
             listOfPkgOrderIDs.add(pkgOrder.getPkgOrderId());
-        }
+        });
         
         return (listOfPkgOrderIDs);
     }
     
+    //retrieve a specific order by orderID
     @Override
     public List getOrdersByOrderID(int orderID){
         String query = "select * from ORDERS where ORDER_ID = " + orderID;
         
         return jdbcTemplate.query(query, new OrdersRowMapper());
     }
-
+    
+    //generates an orderID from an existing orderID 
     @Override
     public int idOrdersGenerator(){
         return jdbcTemplate.queryForObject("select max(order_id) from orders", Integer.class);
     }
     
+    //retrieves all open order items that are closed, associated with an order and customer
     @Override
-    public List<CartPkg> getOpenPkgOrdersByCustomerAll(int customerID, int orderID){
+    public List<CartPkg> getPkgOrdersByCustomerAll(int customerID, int orderID){
         return jdbcTemplate.query("SELECT * FROM PkgOrders O, Packages P WHERE O.Customer_Id=" + customerID
                 + " AND O.ORDER_ID= " + orderID + " AND O.Package_Id=P.Package_Id", new CartPkgRowMapper());
     }
     
+    //Updates an Orders row
     @Override
     public void updateOrderRow(Orders order) {
         String query = "update ORDERS "
@@ -72,14 +81,13 @@ public class OrdersDAOImpl implements OrdersDAO{
                 + ", PHONE_NUMBER = '" + order.getPhoneNumber() + "', DELIVERY_DATE = '" + order.getDeliveryDate()
                 + "', ORDER_DATE = '" + order.getOrderDate() + "', ORDER_STATUS = " + order.getOrderStatus()
                 + " where ORDER_ID = " + order.getOrderID();
-        
         jdbcTemplate.execute(query);
     }
     
+    //Inserts a new order into the Orders table
     @Override
     public void insertNewOrder(Orders orders) {
         String query = "insert into ORDERS values(?,?,?,?,?,?,?,?,?,?,?,?)";
-        
         jdbcTemplate.update(query, new Object[]{orders.getOrderID(), orders.getCustomerID(),
                                     orders.getCreditID(), orders.getPaymentType(),
                                     orders.getTotalPrice(), orders.getStreet(),
@@ -89,6 +97,7 @@ public class OrdersDAOImpl implements OrdersDAO{
         System.out.println("Inserted Orders Record");
     }
     
+    //deletes an order from the Orders table
     @Override
     public void deleteOrder(int orderID) {
         String query = "delete from ORDERS where ORDER_ID = " + orderID;

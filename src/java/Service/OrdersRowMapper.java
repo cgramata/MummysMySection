@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 /**
  *
  * @author syntel
+ * Maps ResultSet object to the Model.Orders.java class
  */
 public class OrdersRowMapper implements RowMapper{
 
