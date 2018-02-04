@@ -5,24 +5,18 @@
  */
 package Controller;
 
-import Service.OrdersDAO;
-import Model.Orders;
 import Service.PkgOrderDAO;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 /**
  *
  * @author syntel
+ * This class populates chosePaymentOption.jsp with information
+ * 
  */
 @Controller
 @RequestMapping("/choosePaymentOption")
@@ -34,10 +28,18 @@ public class ChoosePaymentOption {
         this.pkgOrderDAO = pkgOrderDAO;
     }
     
+    /**
+     * instantiates customerID and retrieves value from session state
+     * calls the choosePaymentOption view, and gives it a list of pkgOrders that
+     * that can be iterated over
+    */
     @RequestMapping(value = "/choosePaymentOption", method = RequestMethod.GET)
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request, 
+                                      HttpServletResponse response) throws Exception {
         int customerID = Integer.parseInt(request.getSession().getAttribute("customerID").toString());
         //returns DB queried object into seeAllOrders.jsp, variable: "listOfOrders"
-        return new ModelAndView("choosePaymentOption","pkgOrderInfo",pkgOrderDAO.getOpenPkgOrdersByCustomerAll(customerID));
+        return new ModelAndView("choosePaymentOption","pkgOrderInfo",
+                                pkgOrderDAO.getOpenPkgOrdersByCustomerAll(customerID));
     }    
 }
+

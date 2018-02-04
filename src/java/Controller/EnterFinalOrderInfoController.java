@@ -5,11 +5,9 @@
  */
 package Controller;
 
-import Model.CartPkg;
 import Service.OrdersDAO;
 import Model.DeliveryAddress;
 import Model.Orders;
-import Model.PkgOrder;
 import Service.PkgOrderDAO;
 import java.net.BindException;
 import java.util.ArrayList;
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  *
  * @author syntel
+ * This is linked to the enterfinalOrderInfo.jsp
  */
 @Controller
 @RequestMapping("/enterFinalOrderInfo")
@@ -43,12 +41,15 @@ public class EnterFinalOrderInfoController{
     }
   
     @RequestMapping(value="/enterFinalOrderInfo", method=RequestMethod.GET)
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-        
+    public ModelAndView handleRequest(HttpServletRequest request, 
+                                      HttpServletResponse response, 
+                                      Model model) throws Exception {
+        //instantiates an empty DeliveryAddress object
         DeliveryAddress deliveryInformation = new DeliveryAddress();
-        //establishes an empty vessel that updated information goes into in editOrders.jsp
+        //establishes an empty vessel that updated information goes into once the
+        //the submit button is clicked and passes it down to the insertNewOrder method
         model.addAttribute("newOrderInfo", deliveryInformation);
-        //returns the order details, from the db, to the proper input fields in editOrders.jsp
+        //retrieves the enterFinalOrderInfo page
         return new ModelAndView("enterFinalOrderInfo");
     }
     
@@ -57,11 +58,14 @@ public class EnterFinalOrderInfoController{
                                        HttpServletResponse response,
                                        @ModelAttribute("newOrderInfo") DeliveryAddress deliveryInformation,
                                        BindException errors) throws Exception{
-        //generates new order id and adds to session state
+        //generates new order id
         int orderID = ordersDAO.idOrdersGenerator()+1;
-        //gets customerID frome sessions state
+        //updates the orderID in the session state
+        HttpSession session = request.getSession();
+        session.setAttribute("orderID", orderID);
+        //gets customerID from session state
         int customerID = Integer.parseInt(request.getSession().getAttribute("customerID").toString());
-        //retrieves final price and sets to session state
+        //retrieves final price
         double totalPrice = pkgOrderDAO.getFinalPrice(customerID);
         //creates ArrayList to hold pkgOrderIDs
         ArrayList<Integer> pkgOrderIDList;
@@ -86,15 +90,11 @@ public class EnterFinalOrderInfoController{
         
         //Creates list of pkgOrderIDs then interates over it to close them and assigns orderIDs
         pkgOrderIDList = ordersDAO.getOpenPkgOrderIDs(newOrder.getCustomerID());
-        for(int pkgOrderId: pkgOrderIDList){
+        pkgOrderIDList.forEach((pkgOrderId) -> {
             pkgOrderDAO.closePkgOrder(pkgOrderId, orderID);
-        }
+        });
         
-        HttpSession session = request.getSession();
-        session.setAttribute("orderID", orderID);
-
-        //navigates to ReceiptPage Controller and gives newOrder as variable "orderDetail"
-        //return new ModelAndView("receiptPage","itemsOrdered",ordersDAO.getOpenPkgOrdersByCustomerAll(customerID, orderID));
+        //redirects to the receiptPage.htm (the receiptPage controller)
         return "redirect:/receiptPage.htm";
     }
     

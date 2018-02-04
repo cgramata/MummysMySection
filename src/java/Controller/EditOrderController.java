@@ -33,7 +33,8 @@ public class EditOrderController {
     //takes in orderID param from seeAllOrders.jsp, queries, and uploads to input fields
     @RequestMapping(value="/editOrder",  method=RequestMethod.GET)
     public ModelAndView handleRequest(HttpServletRequest request, 
-                                      HttpServletResponse response, Model model) throws Exception {
+                                      HttpServletResponse response, 
+                                      Model model) throws Exception {
         Orders order = new Orders();
         //establishes an empty vessel that updated information goes into in editOrders.jsp
         model.addAttribute("orderInfo", order);
@@ -44,10 +45,15 @@ public class EditOrderController {
     }
     
     
+    //this is called when the update/submit button is clicked on the .jsp
     @RequestMapping(value = "/editOrder", method = RequestMethod.POST)
     protected ModelAndView updateOrder(@ModelAttribute("orderInfo") Orders order, 
-                                       BindingResult result, BindException errors) throws Exception{
+                                       BindingResult result, 
+                                       BindException errors) throws Exception{
+        //updates the specific row in the table, the variable order is passed from
+        //the method above, the empty vessel is filled and passed to this method
         ordersDAO.updateOrderRow(order);
+        //returns the view, seeAllOrders.jsp, and is given a new list after the row is deleted
         return new ModelAndView("seeAllOrders","listOfOrders",ordersDAO.getAllOrders());
     }
 }

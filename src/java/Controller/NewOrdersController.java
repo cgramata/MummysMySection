@@ -6,19 +6,13 @@
 package Controller;
 
 import Service.OrdersDAO;
-import Model.NewOrderID;
 import Model.Orders;
-import java.io.Console;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 /**
  *
  * @author syntel
+ * linked to the newOrders.jsp
  */
 public class NewOrdersController extends SimpleFormController{
     private OrdersDAO orderDAO;
@@ -27,15 +21,17 @@ public class NewOrdersController extends SimpleFormController{
         this.orderDAO = ordersDAO;
     }
     
+    //this snippet binds to newOrders.jsp via setCommandName
     public NewOrdersController(){
         setCommandClass (Orders.class);
         setCommandName ("newOrders");
     }
     
+    //Inserts new order into Orders table and redirects to success.jsp
     @Override
     protected ModelAndView onSubmit (Object command) throws Exception{
         Orders newOrder=(Orders)command;
         orderDAO.insertNewOrder(newOrder);
-        return new ModelAndView("Success","orderDetail",newOrder);
+        return new ModelAndView("Success");
     }
 }
