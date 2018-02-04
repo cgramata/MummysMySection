@@ -33,7 +33,7 @@
                     </tr>
                 </c:forEach>
                     <tr>
-                        <td>Total Price:$ ${orderDetails.totalPrice}</td>
+                        <td>Total Price:$ ${finalPrice}</td>
                     </tr>
             </tbody>
         </table>

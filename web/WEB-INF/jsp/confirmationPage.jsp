@@ -54,7 +54,7 @@
                             <a href="enterFinalOrderInfo.htm"><button id="toOrderInfo">Enter Address</button></a>
                         </td>
                         <td>
-                            <a href="menu.htm"><button id="">Cancel</button></a>
+                            <a href="menu.htm"><button>Cancel</button></a>
                         </td>    
                     </tr>
             </tbody>

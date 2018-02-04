@@ -53,7 +53,7 @@ public class EnterFinalOrderInfoController{
     }
     
     @RequestMapping(value="/enterFinalOrderInfo", method=RequestMethod.POST)
-    protected ModelAndView insertNewOrder(HttpServletRequest request,
+    protected String insertNewOrder(HttpServletRequest request,
                                        HttpServletResponse response,
                                        @ModelAttribute("newOrderInfo") DeliveryAddress deliveryInformation,
                                        BindException errors) throws Exception{
@@ -92,9 +92,10 @@ public class EnterFinalOrderInfoController{
         
         HttpSession session = request.getSession();
         session.setAttribute("orderID", orderID);
-        
+
         //navigates to ReceiptPage Controller and gives newOrder as variable "orderDetail"
-        return new ModelAndView("receiptPage","itemsOrdered",ordersDAO.getOpenPkgOrdersByCustomerAll(customerID, orderID));
+        //return new ModelAndView("receiptPage","itemsOrdered",ordersDAO.getOpenPkgOrdersByCustomerAll(customerID, orderID));
+        return "redirect:/receiptPage.htm";
     }
     
 }
