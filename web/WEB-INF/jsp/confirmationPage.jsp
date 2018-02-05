@@ -13,52 +13,85 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Confirmation</title>
         <style>
+            h1 {
+                text-align: center;
+            }
+            #center {
+                text-align: center;
+            }
             table {
-                
-                width: 50%;
+                width: 90%;
+                border-collapse: collapse;
                 margin-left: auto;
                 margin-right: auto;
+                text-align: center;
+            }
+            .inTableHead {
+                padding: 8px;
+                border-bottom: 2px solid #000; 
+            }
+            .inTable {
+                padding: 8px;
+                border-bottom: 1px solid #ddd;
+            }
+            #totalPriceDiv {
+                float: left;
+                width: 50%;
+                height: 50px;
+                text-align: center;
+            }
+            #enterYourAddressDiv{
+                float: right;
+                width: 50%;
+                height: 50px;
                 text-align: center;
             }
         </style>
     </head>
     <body>
-        <table>
-            <caption class="pkgOrderView"><h3>Complete Your Order :)</h3></caption>
-            <thead>
+        <h1>Please Confirm Your Order</h1>
+        <div id="center">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="inTableHead">Package Name</th>
+                        <th class="inTableHead">Quantity</th>
+                        <th class="inTableHead">Price Per Unit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${pkgOrderInfo}" var="pkg">
+                        <tr>
+                            <td class="inTable">${pkg.pName}</td>
+                            <td class="inTable">${pkg.oQuantity}</td>
+                            <td class="inTable">$${pkg.oPricePerPkg}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div id="totalPriceDiv">
+            <h4>Total Price:</h4>
+            <caption>(After Tax)</caption>
+            <table>
                 <tr>
-                    <th>Package Name</th>
-                    <th>Quantity</th>
-                    <th>Price Per Pack</th>
+                    <td>$${finalPrice}</td>
                 </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${pkgOrderInfo}" var="pkg">
-                    <tr>
-                        <td>${pkg.pName}</td>
-                        <td>${pkg.oQuantity}</td>
-                        <td>${pkg.oPricePerPkg}</td>
-                    </tr>
-                </c:forEach>
-                    <tr>
-                        <td>Total Price:$ ${finalPrice}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Continue with the purchase?</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="enterFinalOrderInfo.htm"><button id="toOrderInfo">Enter Address</button></a>
-                        </td>
-                        <td>
-                            <a href="menu.htm"><button>Cancel</button></a>
-                        </td>    
-                    </tr>
-            </tbody>
-            <p></p>
-        </table>
+            </table>
+        </div>
+        <div id="enterYourAddressDiv">
+            <h4>Please enter the delivery address:</h4>
+            <table>
+                <tr>
+                    <td>
+                        <a href="enterFinalOrderInfo.htm"><button id="toOrderInfo">Enter Address</button></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="menu.htm"><button>Cancel</button></a>
+                    </td>
+                </tr>
+        </div>
     </body>
 </html>

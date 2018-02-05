@@ -33,6 +33,13 @@ public class OrdersDAOImpl implements OrdersDAO{
         return jdbcTemplate.query("select * from ORDERS", new OrdersRowMapper());
     }
     
+    //retrieves the current date, will be used to instantiate an order's date and filter for searching
+    @Override
+    public String getTodaysDate(){
+        String query = "select to_char(trunc(sysdate), 'DD-MON-YYYY') from dual";
+        return jdbcTemplate.queryForObject(query, String.class);
+    }
+    
     //get all open pkgOrdersIDs (items in carts) from a customer that hasn't checked out
     @Override
     public ArrayList<Integer> getOpenPkgOrderIDs(int customerID){

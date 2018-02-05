@@ -15,7 +15,6 @@ public class DeliveryAddress {
     private String areaCode;
     private String phoneNumber;
     private String deliveryDate;
-    private String orderDate;
     
     public DeliveryAddress(){
     }
@@ -27,7 +26,6 @@ public class DeliveryAddress {
         this.areaCode = areaCode;
         this.phoneNumber = phoneNumber;
         this.deliveryDate = deliveryDate;
-        this.orderDate = orderDate;
     }
 
     public String getStreet() {
@@ -68,13 +66,5 @@ public class DeliveryAddress {
 
     public void setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
-    }
-
-    public String getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
     }
 }

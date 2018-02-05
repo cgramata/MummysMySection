@@ -24,5 +24,6 @@ public interface OrdersDAO {
     public List getAllOfTodaysOrders();
     public ArrayList<Integer> getOpenPkgOrderIDs(int customerID);
     public List<CartPkg> getPkgOrdersByCustomerAll(int customerID, int orderID);
+    public String getTodaysDate();
 }
 

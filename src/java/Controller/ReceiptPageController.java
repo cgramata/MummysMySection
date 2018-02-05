@@ -8,6 +8,7 @@ package Controller;
 import Service.OrdersDAO;
 import Model.Orders;
 import Model.CartPkg;
+import Service.PkgOrderDAO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class ReceiptPageController {
     
     private OrdersDAO ordersDAO;
+    
+    private PkgOrderDAO pkgOrderDAO;
+    
+    public void setPkgOrderDAO (PkgOrderDAO pkgOrderDAO) {
+        this.pkgOrderDAO = pkgOrderDAO;
+    }
     
     public void setOrdersDAO(OrdersDAO ordersDAO) {
         this.ordersDAO = ordersDAO;

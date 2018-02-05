@@ -81,7 +81,7 @@ public class EnterFinalOrderInfoController{
         newOrder.setPhoneNumber(deliveryInformation.getPhoneNumber());
         //TODO need to figure out how to set dates
         newOrder.setDeliveryDate(deliveryInformation.getDeliveryDate());
-        newOrder.setOrderDate(deliveryInformation.getOrderDate());
+        newOrder.setOrderDate(ordersDAO.getTodaysDate());
         newOrder.setAreaCode(Integer.parseInt(deliveryInformation.getAreaCode()));
         newOrder.setOrderStatus(0);
         newOrder.setTotalPrice(totalPrice);
