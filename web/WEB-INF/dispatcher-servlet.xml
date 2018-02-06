@@ -66,16 +66,15 @@
     <bean name="enterFinalOrderInfoController" 
           class="Controller.EnterFinalOrderInfoController"
           p:ordersDAO-ref="ordersDAO"
-          p:pkgOrderDAO-ref="pkgOrderDAO"/>
+          p:pkgOrderDAO-ref="pkgOrderDAO" />
     
     <bean name="receiptPageController"
           class="Controller.ReceiptPageController"
           p:ordersDAO-ref="ordersDAO"
           p:pkgOrderDAO-ref="pkgOrderDAO"/>
     
+    
+    <!--References-->
     <bean name="pkgOrderDAO" class="Service.PkgOrderDAOImpl" />
     <bean name="ordersDAO" class="Service.OrdersDAOImpl" />
-    
-    
-
 </beans>
