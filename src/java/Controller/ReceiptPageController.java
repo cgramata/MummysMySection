@@ -42,7 +42,7 @@ public class ReceiptPageController {
                                       HttpServletResponse response, 
                                       Model model) throws Exception {
         //retrieves orderID from session state
-        int orderID = Integer.parseInt(request.getSession().getAttribute("orderID").toString());
+        int orderID = Integer.parseInt(request.getSession().getAttribute("orderId").toString());
         //poulates selected with specified order information from Orders table
         Orders selectedOrder = (Orders)ordersDAO.getOrdersByOrderID(orderID).get(0);
         //total price is set from selectedOrder

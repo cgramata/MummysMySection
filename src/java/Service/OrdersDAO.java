@@ -21,6 +21,7 @@ public interface OrdersDAO {
     public void deleteOrder(int orderID);
     public int idOrdersGenerator();
     public List getOrdersByOrderID(int orderID);
+    public List getAllCustomerOrders(int customerID);
     public List getAllOfTodaysOrders();
     public ArrayList<Integer> getOpenPkgOrderIDs(int customerID);
     public List<CartPkg> getPkgOrdersByCustomerAll(int customerID, int orderID);

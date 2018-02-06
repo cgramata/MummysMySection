@@ -22,8 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
  * @author syntel
  */
 @Controller
-@RequestMapping("/seeAllOrders")
-public class SeeAllOrdersController{
+@RequestMapping("/customerViewAllOrders")
+public class CustomerViewAllOrders{
     
     private OrdersDAO ordersDAO;
     
@@ -31,26 +31,16 @@ public class SeeAllOrdersController{
         this.ordersDAO = ordersDAO;
     }
     
-    @RequestMapping(value = "/seeAllOrders", method = RequestMethod.GET)
+    @RequestMapping(value = "/customerViewAllOrders", method = RequestMethod.GET)
     public ModelAndView handleRequest(HttpServletRequest request, 
                                       HttpServletResponse response, 
                                       Model model) throws Exception {
         Orders order = new Orders();
-        //needs to get customerID from session state
+        //Retrieves customerId from session state
         int customerID = Integer.parseInt(request.getSession().getAttribute("customerId").toString());
         //establishes an empty vessel that updated information goes into in seeAllOrders.jsp
         model.addAttribute("orderInfo", order);
         //returns DB queried object into seeAllOrders.jsp, variable: "listOfOrders"
-        return new ModelAndView("seeAllOrders","listOfOrders",ordersDAO.getAllOrders());
-    }
-    
-    @RequestMapping(value = "/seeAllOrders", method = RequestMethod.POST)
-    public String deleteOrderRow(@ModelAttribute("orderInfo") Orders order, 
-                                 BindingResult result, 
-                                 Model model) throws Exception {
-        //deletes order from Orders table
-        ordersDAO.deleteOrder(order.getOrderID());
-        //redirects to seeAllOrders.htm
-        return "redirect:/seeAllOrders.htm";
+        return new ModelAndView("customerViewAllOrders","listOfOrders",ordersDAO.getAllCustomerOrders(customerID));
     }
 }

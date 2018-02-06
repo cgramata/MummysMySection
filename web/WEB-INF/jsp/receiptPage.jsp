@@ -104,7 +104,7 @@
         <div class="banner-img"></div>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
+                <li><a href="customerhome.htm">Home</a></li>
                 <li><a href="menu.htm">Menu</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="#about">About</a></li> 
@@ -113,7 +113,8 @@
         <h1>Thank you for your order!</h1>
         <div id="center">
             <table id="orderInfoTable">
-                <caption class="pkgOrderView"><h3>Complete Your Order :)</h3></caption>
+                <caption class="pkgOrderView"><h3>See you again soon! Your current
+                    order details are below :D</h3></caption>
                 <thead class="inTableHead">
                     <tr>
                         <th class="inTableHead">Item Name</th>
@@ -143,7 +144,7 @@
                     <th>To be delivered on: </th>
                 </tr>
                 <tr>
-                    <td>${finalPrice}</td>
+                    <td>$${finalPrice}</td>
                     <td>${orderDetails.street}</td>
                     <td>${orderDetails.deliveryDate}</td>
                 </tr>

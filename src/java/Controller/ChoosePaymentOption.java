@@ -36,7 +36,7 @@ public class ChoosePaymentOption {
     @RequestMapping(value = "/choosePaymentOption", method = RequestMethod.GET)
     public ModelAndView handleRequest(HttpServletRequest request, 
                                       HttpServletResponse response) throws Exception {
-        int customerID = Integer.parseInt(request.getSession().getAttribute("customerID").toString());
+        int customerID = Integer.parseInt(request.getSession().getAttribute("customerId").toString());
         //returns DB queried object into seeAllOrders.jsp, variable: "listOfOrders"
         return new ModelAndView("choosePaymentOption","pkgOrderInfo",
                                 pkgOrderDAO.getOpenPkgOrdersByCustomerAll(customerID));

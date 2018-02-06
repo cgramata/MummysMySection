@@ -32,7 +32,7 @@ public class ConfirmationPageController {
                                       HttpServletResponse response, 
                                       Model model) throws Exception {
         //retrieves customerID from the sesssion state
-        int customerID = Integer.parseInt(request.getSession().getAttribute("customerID").toString());
+        int customerID = Integer.parseInt(request.getSession().getAttribute("customerId").toString());
         //gives confirmationPage.jsp a variable("finalPrice") through model.addAttribute
         model.addAttribute("finalPrice",pkgOrderDAO.getFinalPrice(customerID));
         //returns another variable("pkgOrderInfo") to confirmationPage view

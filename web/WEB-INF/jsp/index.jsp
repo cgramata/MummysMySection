@@ -3,12 +3,12 @@
 <%
     int paymentType = 2;
     int creditID = 1;
-    int customerID = 2;
+    int customerId = 2;
     int orderID = 0;
     session.setAttribute("orderID",orderID);
     session.setAttribute("paymentType", paymentType);
     session.setAttribute("creditID", creditID);
-    session.setAttribute("customerID", customerID);
+    session.setAttribute("customerId", customerId);
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -24,5 +24,7 @@
         <p><a href="seeAllOrders.htm">See All Orders</a></p>
         <p><a href="newOrders.htm">Insert New Order</a></p>
         <p><a href="choosePaymentOption.htm">Choose Payment</a></p>
+        <p><a href="customerViewAllOrders.htm">View All Customer Orders</a></p>
+        
     </body>
 </html>

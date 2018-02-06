@@ -62,9 +62,9 @@ public class EnterFinalOrderInfoController{
         int orderID = ordersDAO.idOrdersGenerator()+1;
         //updates the orderID in the session state
         HttpSession session = request.getSession();
-        session.setAttribute("orderID", orderID);
+        session.setAttribute("orderId", orderID);
         //gets customerID from session state
-        int customerID = Integer.parseInt(request.getSession().getAttribute("customerID").toString());
+        int customerID = Integer.parseInt(request.getSession().getAttribute("customerId").toString());
         //retrieves final price
         double totalPrice = pkgOrderDAO.getFinalPrice(customerID);
         //creates ArrayList to hold pkgOrderIDs

@@ -27,6 +27,7 @@
                 <prop key="confirmationPage.htm">confirmationPageController</prop>
                 <prop key="enterFinalOrderInfo.htm">enterFinalOrderInfoController</prop>
                 <prop key="receiptPage.htm">receiptPageController</prop>
+                <prop key="customerViewAllOrders.htm">customerViewAllOrdersController</prop>
             </props>
         </property>
     </bean>
@@ -71,7 +72,11 @@
     <bean name="receiptPageController"
           class="Controller.ReceiptPageController"
           p:ordersDAO-ref="ordersDAO"
-          p:pkgOrderDAO-ref="pkgOrderDAO"/>
+          p:pkgOrderDAO-ref="pkgOrderDAO" />
+    
+    <bean name="customerViewAllOrdersController"
+          class="Controller.CustomerViewAllOrders"
+          p:ordersDAO-ref="ordersDAO" />
     
     
     <!--References-->

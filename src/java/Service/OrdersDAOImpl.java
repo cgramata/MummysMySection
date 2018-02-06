@@ -64,6 +64,14 @@ public class OrdersDAOImpl implements OrdersDAO{
         return jdbcTemplate.query(query, new OrdersRowMapper());
     }
     
+    //retrieve all the orders for a customer
+    @Override
+    public List getAllCustomerOrders(int customerID) {
+        String query = "select * from ORDERS where CUSTOMER_ID = " + customerID;
+        
+        return jdbcTemplate.query(query, new OrdersRowMapper());
+    }
+    
     //retrieves orders specified for "today's" date
     @Override
     public List getAllOfTodaysOrders() {
